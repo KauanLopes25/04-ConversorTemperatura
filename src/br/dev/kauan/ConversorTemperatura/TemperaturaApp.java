@@ -1,9 +1,12 @@
 package br.dev.kauan.ConversorTemperatura;
 
+import br.dev.kauan.ConversorTemperatura.model.Temperatura;
+
 public class TemperaturaApp {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+//		Temperatura temperatura = new Temperatura();
+//		temperatura.Testar();
 
 	}
 
