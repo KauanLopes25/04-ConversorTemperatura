@@ -2,11 +2,15 @@ package br.dev.kauan.ConversorTemperatura.gui;
 
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import br.dev.kauan.ConversorTemperatura.model.Temperatura;
 
 public class TelaConversor {
 	// Atributo Caixa de texto
@@ -61,9 +65,9 @@ public class TelaConversor {
 		labelResultado.setFont(new Font("Courier", Font.BOLD,16));
 		
 		labelMensagemErro = new JLabel();
-		labelMensagemErro.setBounds(50, 160, 140, 30);
-		labelMensagemErro.setText("Caso o valor fornecido pelo usuário esteja incorreto, a mensagem de erro deverá aparecer aqui.");
-		labelResultado.setFont(new Font("Courier", Font.BOLD,10));
+		labelMensagemErro.setBounds(50, 160, 240, 40);
+		labelMensagemErro.setText("<html><body style='width: 200px;'>Caso o valor fornecido pelo usuário esteja incorreto, a mensagem de erro deverá aparecer aqui.");
+		labelMensagemErro.setFont(new Font("Courier", Font.BOLD,10));
 		
 		// Obtendo referência do Container, o painel de conteudo da janela
 		Container container = tela.getContentPane();
@@ -75,6 +79,23 @@ public class TelaConversor {
 		container.add(buttonKelvin);
 		container.add(labelResultado);
 		container.add(labelMensagemErro);
+		
+		// Adicionando escutantes de ação aos botão Kelvin
+		buttonKelvin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			// Coletando os valores nos campos
+			String celsius = textCelsius.getText();
+			
+			// Convertendo os valores para double
+			double celsiusDouble = Double.parseDouble(celsius);
+			
+			// Fornecendo os valores para o conversor
+			Temperatura temperaturaKelvin = new Temperatura();
+				
+			}
+		});
 		
 		tela.setVisible(true);
 	}
