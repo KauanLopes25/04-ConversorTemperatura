@@ -6,6 +6,11 @@ public class Temperatura {
 	//Atributo
 	private double celsius;
 	
+	// Constructo
+		public Temperatura(double celcius) {
+			setCelsius(celcius);
+		}
+	
 	//Métodos
 	
 	public double getCelsius() {
@@ -28,6 +33,8 @@ public class Temperatura {
 		fahreinhet = (celsius*1.8)+32;
 		return fahreinhet;
 	}
+	
+	
 	
 //	public void Testar() {
 //		System.out.println("-----------------------------");

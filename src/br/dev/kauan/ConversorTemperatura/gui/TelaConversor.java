@@ -60,7 +60,7 @@ public class TelaConversor {
 		buttonKelvin.setFont(new Font("Courier", Font.PLAIN,12));
 		
 		labelResultado = new JLabel();
-		labelResultado.setBounds(110, 120, 150, 30);
+		labelResultado.setBounds(110, 120, 160, 30);
 		labelResultado.setText("00 FAHRENHEIT");
 		labelResultado.setFont(new Font("Courier", Font.BOLD,16));
 		
@@ -92,7 +92,31 @@ public class TelaConversor {
 			double celsiusDouble = Double.parseDouble(celsius);
 			
 			// Fornecendo os valores para o conversor
-			Temperatura temperaturaKelvin = new Temperatura();
+			Temperatura temperaturaKelvin = new Temperatura(celsiusDouble);
+			
+			// Mostrando a temperatura convertida na tela
+			labelResultado.setText(temperaturaKelvin.converterParaKelvin()+" Kelvin");
+				
+			}
+		});
+		
+		// Adicionando escutantes de ação ao botão Fahrenheit
+		buttonFahreinheit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			// coletando os valores nos campos
+			String celsius = textCelsius.getText();
+			
+			// Convertendo os valores para double
+			double celsiusDouble = Double.parseDouble(celsius);
+			
+			// Fornecendo os valores para o conversor
+			Temperatura temperaturaKelvin = new Temperatura(celsiusDouble);
+						
+			// Mostrando a temperatura convertida na tela
+			labelResultado.setText(temperaturaKelvin.converterParaFahreinhet()+" Fahrenheit");
+							
 				
 			}
 		});
