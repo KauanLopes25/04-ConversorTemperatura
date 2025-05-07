@@ -25,6 +25,7 @@ public class Temperatura {
 	public double converterParaKelvin() {
 		double kelvin;
 		kelvin = celsius + 273.15;
+//		String textoFormato = String.format("%.2f", kelvin);
 		return kelvin;
 	}
 	

@@ -123,10 +123,13 @@ public class TelaConversor {
 							labelResultado.setText(null);
 						} else {
 							// Fornecendo os valores para o conversor
-							Temperatura temperaturaKelvin = new Temperatura(celsiusDouble);
+							Temperatura temperatura = new Temperatura(celsiusDouble);
 							
-							// Mostrando a temperatura convertida na tela
-							labelResultado.setText(temperaturaKelvin.converterParaKelvin()+" Kelvin");
+							// Mostrando a temperatura convertida na tela e reduzindo o numero de casas decimais.
+							double resultado = temperatura.converterParaKelvin();
+							String resultadoTexto = String.format("%.2f", resultado);
+							labelResultado.setText(resultadoTexto +" kelvin");
+							// Limpa a mensagem de erro
 							labelMensagemErro.setText(null);
 						}	
 				}
@@ -152,7 +155,7 @@ public class TelaConversor {
 			celsius = celsius.replace(",", ".");
 			
 			if (celsius.trim().isEmpty()) {
-				labelMensagemErro.setBounds(100, 160, 240, 40);
+				labelMensagemErro.setBounds(105, 160, 240, 40);
 				labelMensagemErro.setText("!!VALOR NÃO INFORMADO!!");
 				labelResultado.setText(null);
 			} else {
@@ -167,10 +170,12 @@ public class TelaConversor {
 						labelResultado.setText(null);
 					} else {
 						// Fornecendo os valores para o conversor
-						Temperatura temperaturaKelvin = new Temperatura(celsiusDouble);
+						Temperatura temperatura = new Temperatura(celsiusDouble);
 									
-						// Mostrando a temperatura convertida na tela
-						labelResultado.setText(temperaturaKelvin.converterParaFahreinhet()+" Fahrenheit");
+						// Mostrando a temperatura convertida na tela e reduzindo o numero de casas decimais.
+						double resultado = temperatura.converterParaFahreinhet();
+						String resultadoTexto = String.format("%.2f", resultado);
+						labelResultado.setText(resultadoTexto +" Fahrenheit");
 						// Limpa a mensagem de erro
 						labelMensagemErro.setText(null);
 					}
