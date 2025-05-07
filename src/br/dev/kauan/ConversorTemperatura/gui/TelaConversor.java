@@ -1,5 +1,6 @@
 package br.dev.kauan.ConversorTemperatura.gui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -61,13 +62,12 @@ public class TelaConversor {
 		
 		labelResultado = new JLabel();
 		labelResultado.setBounds(110, 120, 160, 30);
-		labelResultado.setText("00 FAHRENHEIT");
 		labelResultado.setFont(new Font("Courier", Font.BOLD,16));
 		
 		labelMensagemErro = new JLabel();
-		labelMensagemErro.setBounds(50, 160, 240, 40);
-		labelMensagemErro.setText("<html><body style='width: 200px;'>Caso o valor fornecido pelo usuário esteja incorreto, a mensagem de erro deverá aparecer aqui.");
+		//labelMensagemErro.setText("<html><body style='width: 200px;'>"); quebra a linha em 200px
 		labelMensagemErro.setFont(new Font("Courier", Font.BOLD,10));
+		labelMensagemErro.setForeground(Color.RED);
 		
 		// Obtendo referência do Container, o painel de conteudo da janela
 		Container container = tela.getContentPane();
@@ -88,14 +88,56 @@ public class TelaConversor {
 			// Coletando os valores nos campos
 			String celsius = textCelsius.getText();
 			
-			// Convertendo os valores para double
-			double celsiusDouble = Double.parseDouble(celsius);
+			//Altera a "," digitada pelo usuário pelo "." utilizando a função replace da classe String
+			celsius = celsius.replace(",", ".");
 			
-			// Fornecendo os valores para o conversor
-			Temperatura temperaturaKelvin = new Temperatura(celsiusDouble);
+			/*
+			 *MENSAGEM DE ERRO
+			 *Funções .trim() e .isEmpty() presentes na classe String
+			 *.trim é responsavel por retirar espaços dos valores atribuidos para uma variavel ex"kau an"
+			 *.isEmpty é responsavel por retornar TRUE quando o valor atribuido para uma variavel for ex""
+			*/
+			if (celsius.trim().isEmpty()) {
+				labelMensagemErro.setBounds(100, 160, 240, 40);
+				labelMensagemErro.setText("!!VALOR NÃO INFORMADO!!");
+				labelResultado.setText(null);
+			} 
+			else {
+				
+				/*
+				 *try-catch é uma função nativa do java e é utilizada para erros em exeções,
+				 *onde o try realiza a operação normalmente, e caso ocorra um erro o catch é acionado sem 
+				 *parar o programa.
+				 *NumberFormatException esta especificando o erro, e dizendo para o java que ocorrer um erro de formato
+				 *deverá executar a operação dentro do catch.
+				 */
+				
+				try {
+						// Convertendo os valores para double
+						double celsiusDouble = Double.parseDouble(celsius);
+						
+						// Tratativa do zero absoluto
+						if (celsiusDouble < -273.15) {
+							labelMensagemErro.setBounds(60, 160, 240, 40);
+							labelMensagemErro.setText("!!IMPOSSIVEL EXCEDER O ZERO ABSOLUTO!!");
+							labelResultado.setText(null);
+						} else {
+							// Fornecendo os valores para o conversor
+							Temperatura temperaturaKelvin = new Temperatura(celsiusDouble);
+							
+							// Mostrando a temperatura convertida na tela
+							labelResultado.setText(temperaturaKelvin.converterParaKelvin()+" Kelvin");
+							labelMensagemErro.setText(null);
+						}	
+				}
+				catch (NumberFormatException e1) {
+					labelMensagemErro.setBounds(90, 160, 240, 40);
+					labelMensagemErro.setText("!!DIGITE UM VALOR VÁLIDO!!");
+					labelResultado.setText(null);
+				}
+			}
 			
-			// Mostrando a temperatura convertida na tela
-			labelResultado.setText(temperaturaKelvin.converterParaKelvin()+" Kelvin");
+			
 				
 			}
 		});
@@ -107,15 +149,38 @@ public class TelaConversor {
 			public void actionPerformed(ActionEvent e) {
 			// coletando os valores nos campos
 			String celsius = textCelsius.getText();
+			celsius = celsius.replace(",", ".");
 			
-			// Convertendo os valores para double
-			double celsiusDouble = Double.parseDouble(celsius);
-			
-			// Fornecendo os valores para o conversor
-			Temperatura temperaturaKelvin = new Temperatura(celsiusDouble);
-						
-			// Mostrando a temperatura convertida na tela
-			labelResultado.setText(temperaturaKelvin.converterParaFahreinhet()+" Fahrenheit");
+			if (celsius.trim().isEmpty()) {
+				labelMensagemErro.setBounds(100, 160, 240, 40);
+				labelMensagemErro.setText("!!VALOR NÃO INFORMADO!!");
+				labelResultado.setText(null);
+			} else {
+				try {
+					// Convertendo os valores para double
+					double celsiusDouble = Double.parseDouble(celsius);
+					
+					// Tratativa do zero absoluto
+					if (celsiusDouble < -273.15) {
+						labelMensagemErro.setBounds(60, 160, 240, 40);
+						labelMensagemErro.setText("!!IMPOSSIVEL EXCEDER O ZERO ABSOLUTO!!");
+						labelResultado.setText(null);
+					} else {
+						// Fornecendo os valores para o conversor
+						Temperatura temperaturaKelvin = new Temperatura(celsiusDouble);
+									
+						// Mostrando a temperatura convertida na tela
+						labelResultado.setText(temperaturaKelvin.converterParaFahreinhet()+" Fahrenheit");
+						// Limpa a mensagem de erro
+						labelMensagemErro.setText(null);
+					}
+					
+				} catch (NumberFormatException e2) {
+					labelMensagemErro.setBounds(90, 160, 240, 40);
+					labelMensagemErro.setText("!!DIGITE UM VALOR VÁLIDO!!");
+					labelResultado.setText(null);
+				}
+			}
 							
 				
 			}
